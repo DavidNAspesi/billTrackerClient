@@ -4,9 +4,12 @@
       <img src="../assets/business.png" alt="bill">
       <h1>Bill Tracker</h1>
     </header>
-    <main>
-      <p>The future home of the Bill Tracker</p>
-      <p><router-link to="/billPage">Go to the App!</router-link></p>
+    <main class="container">
+      <p>Select User</p>
+      <select>
+        <option></option>
+      </select>
+      <p><router-link :to="{name: 'billPage'}">Go to the App!</router-link></p>
     </main>
   </div>
 </template>
@@ -14,7 +17,6 @@
 <script>
 
 export default {
-  name: 'signIn',
   components: {
   }
 }
@@ -26,7 +28,7 @@ img {
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
-    width: 50%;
+    max-height: 200px;
 }
 h1 {
   font-size: 300%;
