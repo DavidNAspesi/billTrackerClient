@@ -1,14 +1,18 @@
 <template>
   <div class="seeBills">
-    <p>this is to make sure the see bills is present</p>
+    <div class="container billBox" v-for="bill in bills" :key="bill.type">
+      <h1>{{bill.type}}</h1>
+      <h2>{{bill.amount}}</h2>
+      <p>Bill is due {{bill.due_date}}</p>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'seeBills',
-  props: {
-  }
+  props: ["bills"]
+  
 }
 </script>
 

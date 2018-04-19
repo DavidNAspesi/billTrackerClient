@@ -8,8 +8,9 @@
       <p>Select User</p>
       <select>
         <option></option>
+        <option v-for="customer in customers" :key="customer.id">{{customer.name}}</option>
       </select>
-      <p><router-link :to="{name: 'billPage'}">Go to the App!</router-link></p>
+      <p><router-link :to="{ name: 'billPage', params: { id: 1 }}">Go to the App!</router-link></p>
     </main>
   </div>
 </template>
@@ -17,7 +18,21 @@
 <script>
 
 export default {
-  components: {
+  data() {
+    return {
+      customers: [],
+    }
+  },
+  mounted() {
+    this.load()
+  },
+  methods: {
+    load() {
+      fetch("https://bill-tracker-server.herokuapp.com/customers")
+        .then(res => res.json())
+        .then(customers => this.customers = customers.customers)
+    },
+    
   }
 }
 </script>

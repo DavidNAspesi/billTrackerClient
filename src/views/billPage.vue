@@ -1,7 +1,7 @@
 <template>
   <div class="billPage">
     <h1>This will be the bill page</h1>
-    <seeBills class="container"></seeBills>
+    <seeBills class="container" :bills="bills"></seeBills>
     <addBill class="container"></addBill>
     <billChart class="container"></billChart>
     <router-link :to="{name: 'signIn'}">Go back to the sign in page</router-link>
@@ -18,7 +18,26 @@ export default {
       seeBills,
       addBill,
       billChart
-    }
+    },
+    data() {
+      return {
+        bills: []
+      }
+    },
+    mounted() {
+      this.load()
+    },
+    methods: {
+      load() {
+        fetch(`https://bill-tracker-server.herokuapp.com/bills/${this.getId()}`)
+          .then(res => res.json())
+          .then(bills => this.bills = bills.bills)
+      },
+      getId() {
+        const path = window.location.href.split("/")
+        return path[path.length -1]
+      },
+    },
 }
 </script>
 

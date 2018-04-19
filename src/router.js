@@ -13,7 +13,7 @@ export default new Router({
       component: signIn
     },
     {
-      path: '/billPage',
+      path: '/billPage/:id',
       name: 'billPage',
       component: billPage
     }
