@@ -10,7 +10,7 @@
         <option></option>
         <option v-for="customer in customers" :key="customer.id">{{customer.name}}</option>
       </select>
-      <p><router-link :to="{ name: 'billPage', params: { id: 1 }}">Go to the App!</router-link></p>
+      <p><router-link :to="{ name: 'billPage', params: { id: 2 }}">Go to the App!</router-link></p>
     </main>
   </div>
 </template>

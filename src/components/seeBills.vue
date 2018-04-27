@@ -1,9 +1,9 @@
 <template>
   <div class="seeBills">
-    <div class="container billBox" v-for="bill in bills" :key="bill.type">
-      <h1>{{bill.type}}</h1>
-      <h2>{{bill.amount}}</h2>
-      <p>Bill is due {{bill.due_date}}</p>
+    <div class="container jumbotron" v-for="bill in bills" :key="bill.type">
+      <h3>Type of bill: {{bill.type}}</h3>
+      <h3>Amount owed: ${{bill.amount}}</h3>
+      <p>Bill is due by: {{bill.due_date}}</p>
     </div>
   </div>
 </template>
