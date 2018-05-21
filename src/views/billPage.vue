@@ -1,8 +1,8 @@
 <template>
   <div class="billPage">
     <h1>This will be the bill page</h1>
-    <seeBills class="container" :bills="bills"></seeBills>
-    <addBill :addBill="addBill" class="container"></addBill>
+    <seeBills class="container" :bills="bills" :load="load"></seeBills>
+    <addBill :getId="getId" :load="load" class="container"></addBill>
     <billChart class="container"></billChart>
     <router-link :to="{name: 'signIn'}">Go back to the sign in page</router-link>
   </div>
@@ -36,13 +36,6 @@ export default {
       getId() {
         const path = window.location.href.split("/")
         return path[path.length -1]
-      },
-      addBill(bill) {
-        fetch("https://bill-tracker-server.herokuapp.com/bills/", {
-          method: "POST",
-          headers: new Headers({"Content-Type": "application/json"}),
-          body: JSON.stringify({bill})
-        })
       },
     }
 }
