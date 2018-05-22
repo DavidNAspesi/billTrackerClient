@@ -3,7 +3,7 @@
     <seeBills class="container" :bill="bill" :deleteBill="deleteBill" :changeBill="changeBill" v-for="bill in bills" :key="bill.id"></seeBills>
     <addBill class="container" :postBill="postBill"></addBill>
     <billChart class="container"></billChart>
-    <router-link :to="{name: 'signIn'}">Go back to the sign in page</router-link>
+    <router-link :to="{name: 'signIn'}" class="btn btn-danger">Go back to the sign in page</router-link>
   </div>
 </template>
 
