@@ -1,8 +1,7 @@
 <template>
   <div class="billPage">
-    <h1>This will be the bill page</h1>
-    <seeBills class="container" :bills="bills" :load="load"></seeBills>
-    <addBill :getId="getId" :load="load" class="container"></addBill>
+    <seeBills class="container" :bill="bill" :deleteBill="deleteBill" :changeBill="changeBill" v-for="bill in bills" :key="bill.id"></seeBills>
+    <addBill class="container" :postBill="postBill"></addBill>
     <billChart class="container"></billChart>
     <router-link :to="{name: 'signIn'}">Go back to the sign in page</router-link>
   </div>
@@ -21,7 +20,7 @@ export default {
     },
     data() {
       return {
-        bills: []
+        bills: [],
       }
     },
     mounted() {
@@ -37,6 +36,35 @@ export default {
         const path = window.location.href.split("/")
         return path[path.length -1]
       },
+      postBill(body) {
+        fetch("https://bill-tracker-server.herokuapp.com/bills/", {
+          method: "POST",
+          headers: new Headers({"Content-Type": "application/json"}),
+          body: JSON.stringify({
+            user_id: this.getId(),
+            type: body.type,
+            amount: body.amount,
+            due_date: body.due_date
+          })
+        })
+        .then(this.load)
+      },
+      deleteBill(id) {
+        fetch("https://bill-tracker-server.herokuapp.com/bills/" + id, {method: "DELETE"})
+        .then(this.load)
+      },
+      changeBill(id, body) {
+        fetch("https://bill-tracker-server.herokuapp.com/bills/" + id, {
+          method: "PUT",
+          headers: new Headers({"Content-Type": "application/json"}),
+          body: JSON.stringify({
+            // user_id: this.getId(),
+            // type: this.bill.type,
+            // amount: this.bill.amount,
+            // due_date: this.bill.due_date
+          })
+        })
+      }
     }
 }
 </script>

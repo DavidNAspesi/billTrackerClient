@@ -28,17 +28,40 @@
 <script>
 export default {
   name: 'seeBills',
-  props: [
-    "bill",
-    "load",
-    "getId",
-    "deleteBill",
-    "changeBill",
-  ],
+  props: ["bills", "load", "getId"],
   data:() => ({
         showForm: false,
+        bill: {
+            type: "",
+            amount: "",
+            due_date: ""
+        }
     }),
   methods: {
+    deleteBill(id) {
+      fetch("https://bill-tracker-server.herokuapp.com/bills/" + id,{method: "DELETE"})
+      .then(this.load)
+    },
+    changeBill(id) {
+      fetch("https://bill-tracker-server.herokuapp.com/bills/" + id, {
+        method: "PUT",
+        headers: new Headers({"Content-Type": "application/json"}),
+        body: JSON.stringify({
+          user_id: this.getId(),
+          type: this.bill.type,
+          amount: this.bill.amount,
+          due_date: this.bill.due_date
+        })
+      })
+      .then(res => console.log(res))
+      .then(this.bill = {
+        type: "",
+        amount: "",
+        due_date: "",
+      },
+      this.showForm = false)
+      .then(this.load)
+    }
   }
 }
 </script>

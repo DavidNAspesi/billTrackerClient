@@ -1,18 +1,18 @@
 <template>
     <div class="addBill">
         <button @click="showForm = !showForm" type="button" class="btn btn-primary">Add a bill</button>
-        <form v-if="showForm" class="jumbotron" @submit="postBill">
+        <form v-if="showForm" class="jumbotron" @submit="sendToPostBill(newBill)">
             <div class="form-group">
                 <label for="type">Type of bill</label>
-                <input id="type" class="form-control" v-model="bill.type">
+                <input id="type" class="form-control" v-model="newBill.type">
             </div>
             <div class="form-group">
                 <label for="amount">How much is due?</label>
-                <input id="amount" class="form-control" v-model="bill.amount">
+                <input id="amount" class="form-control" v-model="newBill.amount">
             </div>
             <div class="form-group">
                 <label for="dueDate">When is it due?</label>
-                <input id="dueDate" class="form-control" v-model="bill.due_date">
+                <input id="dueDate" class="form-control" v-model="newBill.due_date">
             </div>
                 <input type="submit" value="Add Bill" class="btn btn-success"/> 
         </form>
@@ -20,38 +20,29 @@
 </template>
 
 <script>
+function getNewBill() {
+    return {
+        type: "",
+        amount: "",
+        due_date: ""
+    }
+}
+
 export default {
     name: "addBill",
-    props: ["getId", "load"],
+    props: [
+        "postBill"
+    ],
     data:() => ({
         showForm: false,
-        bill: {
-            type: "",
-            amount: "",
-            due_date: ""
-        }
+        newBill: getNewBill()
     }),
     methods: {
-      postBill() {
-        fetch("https://bill-tracker-server.herokuapp.com/bills/", {
-          method: "POST",
-          headers: new Headers({"Content-Type": "application/json"}),
-          body: JSON.stringify({
-            user_id: this.getId(),
-            type: this.bill.type,
-            amount: this.bill.amount,
-            due_date: this.bill.due_date
-          })
-        })
-        .then(res => res.json())
-        .then(this.bill = {
-            type: "",
-            amount: "",
-            due_date: "",
-        },
-        this.showForm = false)
-        .then(this.load)
-      },
+        sendToPostBill(bill) {
+            this.postBill(bill)
+            this.showForm = false
+            this.newBill = getNewBill()
+        }
     },
 }
 </script>
