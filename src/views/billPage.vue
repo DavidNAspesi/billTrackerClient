@@ -58,12 +58,13 @@ export default {
           method: "PUT",
           headers: new Headers({"Content-Type": "application/json"}),
           body: JSON.stringify({
-            // user_id: this.getId(),
-            // type: this.bill.type,
-            // amount: this.bill.amount,
-            // due_date: this.bill.due_date
+            user_id: this.getId(),
+            type: body.type,
+            amount: body.amount,
+            due_date: body.due_date
           })
         })
+        .then(this.load)
       }
     }
 }

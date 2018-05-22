@@ -6,7 +6,7 @@
       <p>Bill is due by: {{bill.due_date}}</p>
       <button class="btn btn-danger" v-on:click="deleteBill(bill.id)">Delete this bill</button>
       <button class="btn btn-primary" @click="showForm = !showForm">Update this bill</button>
-        <form v-if="showForm" class="jumbotron" @submit.prevent="changeBill">
+        <form v-if="showForm" class="jumbotron" @submit.prevent="sendToChangeBill(bill.id, bill)">
           <div class="form-group">
             <label for="type">Type of bill</label>
             <input id="type" class="form-control" v-model="bill.type">
@@ -39,6 +39,10 @@ export default {
         showForm: false,
     }),
   methods: {
+    sendToChangeBill(id, body) {
+      this.changeBill(id, body)
+      this.showForm = false
+    }
   }
 }
 </script>

@@ -6,23 +6,21 @@
     </header>
     <main class="container">
       <p>Select User</p>
-      <select>
+      <select v-model="selected">
         <option></option>
-        <option v-for="customer in customers" :key="customer.id">{{customer.name}}</option>
+        <option v-for="customer in customers" :key="customer.id" v-bind:value="customer.id">{{customer.name}}</option>
       </select>
-      <p><router-link :to="{ name: 'billPage', params: { id: 2 }}">Go to the App!</router-link></p>
+      <p><router-link :to="{ name: 'billPage', params: { id: selected }}">Go to the App!</router-link></p>
     </main>
   </div>
 </template>
 
 <script>
-
 export default {
-  data() {
-    return {
-      customers: [],
-    }
-  },
+  data:() => ({
+    selected: "",
+    customers: [],
+  }),
   mounted() {
     this.load()
   },
@@ -30,6 +28,7 @@ export default {
     load() {
       fetch("https://bill-tracker-server.herokuapp.com/customers")
         .then(res => res.json())
+        // .then(customers => console.log(customers.customers))
         .then(customers => this.customers = customers.customers)
     },
     
