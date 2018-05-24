@@ -12,6 +12,7 @@ Upon cloning this repo, run `npm install`.  Once the packages and dependencies h
 
 ## Author Contact Information
 Reach David Aspesi at the following places:
+
 [GitHub](https://github.com/DavidNAspesi/)
 [LinkedIn](https://www.linkedin.com/in/davidnaspesi/)
 DavidNAspesi@gmail.com
