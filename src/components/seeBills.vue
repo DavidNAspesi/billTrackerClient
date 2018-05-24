@@ -5,7 +5,7 @@
       <h3>Amount owed: ${{bill.amount}}</h3>
       <p>Bill is due by: {{bill.due_date}}</p>
       <button class="btn btn-danger" v-on:click="deleteBill(bill.id)">Delete this bill</button>
-      <button class="btn btn-primary" @click="showForm = !showForm">Update this bill</button>
+      <button class="btn btn-warning" @click="showForm = !showForm">Update this bill</button>
         <form v-if="showForm" class="jumbotron" @submit.prevent="sendToChangeBill(bill.id, bill)">
           <div class="form-group">
             <label for="type">Type of bill</label>

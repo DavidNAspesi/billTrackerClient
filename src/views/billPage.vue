@@ -2,8 +2,10 @@
   <div class="billPage">
     <seeBills class="container" :bill="bill" :deleteBill="deleteBill" :changeBill="changeBill" v-for="bill in bills" :key="bill.id"></seeBills>
     <addBill class="container" :postBill="postBill"></addBill>
-    <billChart class="container"></billChart>
-    <router-link :to="{name: 'signIn'}" class="btn btn-danger">Go back to the sign in page</router-link>
+    <billChart class="container" :billData="billData" :billLabels="billLabels" :clearChartData="clearChartData" :loadChartData="loadChartData"></billChart>
+      <div class="routerLink">
+        <router-link :to="{name: 'signIn'}" class="btn btn-danger">Go back to the sign in page</router-link>
+      </div>
   </div>
 </template>
 
@@ -21,6 +23,8 @@ export default {
     data() {
       return {
         bills: [],
+        billData: [],
+        billLabels: []
       }
     },
     mounted() {
@@ -31,6 +35,15 @@ export default {
         fetch(`https://bill-tracker-server.herokuapp.com/bills/${this.getId()}`)
           .then(res => res.json())
           .then(bills => this.bills = bills.bills)
+          this.loadChartData()
+      },
+      loadChartData() {
+        fetch(`https://bill-tracker-server.herokuapp.com/bills/${this.getId()}`)
+          .then(res => res.json())
+          .then(bills => bills.bills.forEach(bill => {
+            this.billData.unshift(bill.amount)
+            this.billLabels.unshift(bill.due_date)
+          }))
       },
       getId() {
         const path = window.location.href.split("/")
@@ -65,11 +78,18 @@ export default {
           })
         })
         .then(this.load)
+      },
+      clearChartData() {
+        this.billLabels = []
+        this.billData = []
       }
     }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.routerLink {
+  display: flex;
+  justify-content: center;
+}
 </style>
