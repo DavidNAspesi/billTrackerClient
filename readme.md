@@ -4,7 +4,7 @@ Deployed site [here]("https://bill-track.firebaseapp.com/#/")
 Bill Tracker is an app that allows a user to sign in with their name (or add themselves) and track their bills to watch for patterns!  On the users page, the app renders all the bills they have already added.  Additionally, the app allows users to add a bill with a form, edit a bill that already exists, or delete bills from their list.  The app also contains a toggleable chart for a handy visualization of all the users bills!
 
 ## Screen Shot
-![billtracker screepcap]("./src/assets/billtracker.gif")
+![billtracker screepcap](./src/assets/billtracker.gif)
 
 ## Local Installation
 
